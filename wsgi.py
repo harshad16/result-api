@@ -27,6 +27,7 @@ from thoth.common import init_logging
 from thoth.common import logger_setup
 from thoth.storages import AdvisersResultsStore
 from thoth.storages import AnalysisResultsStore
+from thoth.storages import BuildLogsAnalysisResultsStore
 from thoth.storages import DependencyMonkeyReportsStore
 from thoth.storages import GraphDatabase
 from thoth.storages import PackageAnalysisResultsStore
@@ -59,6 +60,15 @@ def post_analysis_result():  # Ignore PyDocStyleBear
     adapter.connect()
     document_id = adapter.store_document(request.json)
     _LOGGER.info("Analyzer result stored with document_id %r", document_id)
+    return jsonify({"document_id": document_id}), 201, {"ContentType": "application/json"}
+
+
+@application.route("/api/v1/buildlogs-analysis-result", methods=["POST"])
+def post_buildlogs_analysis_result():  # Ignore PyDocStyleBear
+    adapter = BuildLogsAnalysisResultsStore()
+    adapter.connect()
+    document_id = adapter.store_document(request.json)
+    _LOGGER.info("Build Logs Analyzer result stored with document_id %r", document_id)
     return jsonify({"document_id": document_id}), 201, {"ContentType": "application/json"}
 
 
