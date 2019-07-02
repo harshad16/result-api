@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
-thoth-storages = "*"
-thoth-common = "*"
 gunicorn = "*"
+thoth-common = {git = "https://github.com/harshad16/common.git",ref = "update/build-analyser", extras = ["openshift"],version = "*"}
+thoth-storages = {git = "https://github.com/harshad16/storages.git",ref = "new/buildlogs-analysis"}
 
 [dev-packages]
 "autopep8" = "*"
